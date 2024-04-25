@@ -13,6 +13,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "lorisleiva/laravel-actions": "^2.8",
+        "pusher/pusher-php-server": "^7.2",
         "spatie/laravel-data": "^4.4",
         "tightenco/ziggy": "^2.0"
     },
