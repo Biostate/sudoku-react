@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27d5b24bf48b0153290d15d03637a0b5",
+    "content-hash": "96d73a84a45b884f948c98630759bd4c",
     "packages": [
         {
             "name": "amphp/amp",
@@ -8232,6 +8232,55 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "xeeeveee/sudoku",
+            "version": "0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xeeeveee/sudoku.git",
+                "reference": "7be2cf125cebab16d78e6ad16bf8aaae0d76c6f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xeeeveee/sudoku/zipball/7be2cf125cebab16d78e6ad16bf8aaae0d76c6f3",
+                "reference": "7be2cf125cebab16d78e6ad16bf8aaae0d76c6f3",
+                "shasum": ""
+            },
+            "require-dev": {
+                "codeception/codeception": "*",
+                "guzzlehttp/guzzle": "5.3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jack Neary",
+                    "email": "xeeeveee@gmail.com"
+                }
+            ],
+            "description": "PHP sudoku logic library - Generate and solve sudoku puzzles",
+            "homepage": "https://github.com/xeeeveee/sudoku",
+            "keywords": [
+                "generation",
+                "generator",
+                "solver",
+                "solving",
+                "sudoku"
+            ],
+            "support": {
+                "issues": "https://github.com/xeeeveee/sudoku/issues",
+                "source": "https://github.com/xeeeveee/sudoku/tree/master"
+            },
+            "time": "2015-11-17T23:09:53+00:00"
         }
     ],
     "packages-dev": [
