@@ -1,18 +1,68 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
+import { useState } from 'react'
+import { router } from '@inertiajs/react'
 
 export default function Dashboard({ auth }) {
+    const [gameCode, setGameCode] = useState('')
+
+    function joinGame(e) {
+        e.preventDefault()
+        router.get('/game/'+gameCode)
+    }
+
+    function createGame(e) {
+        e.preventDefault()
+        router.post('/game')
+    }
+
     return (
         <AuthenticatedLayout
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
         >
             <Head title="Dashboard" />
-
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900">You're logged in!</div>
+                    <div className="bg-white p-6 rounded-lg shadow-sm">
+                        <form onSubmit={joinGame} className="space-y-4">
+                            <div>
+                                <label htmlFor="game_code" className="block text-sm font-medium text-gray-700">
+                                    Game Code:
+                                </label>
+                                <input
+                                    id="game_code"
+                                    type="text"
+                                    value={gameCode}
+                                    onChange={(e) => setGameCode(e.target.value)}
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    placeholder="Enter game code"
+                                />
+                            </div>
+                            <div>
+                                <button
+                                    type="submit"
+                                    className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                >
+                                    Join Game
+                                </button>
+                            </div>
+                        </form>
+                        <div className="mt-6 text-center">
+                            <hr className="mb-4"/>
+                            <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                                OR
+                            </h2>
+                            <hr className="mt-4"/>
+                        </div>
+                        <div className="mt-6">
+                            <button
+                                onClick={createGame}
+                                className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                            >
+                                Create Game
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

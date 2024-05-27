@@ -24,4 +24,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::post('friend-requests/{friendRequest}/approve', \App\Actions\ApproveFriendRequest::class)
+    ->name('friend-requests.approve');
+
+Route::post('friend-requests/{friendRequest}/reject', \App\Actions\RejectFriendRequest::class)
+    ->name('friend-requests.reject');
+
 require __DIR__.'/auth.php';
+require __DIR__.'/game.php';
