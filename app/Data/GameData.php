@@ -15,7 +15,7 @@ class GameData extends Data
         public string $code,
         public string $mode,
         public string $status,
-        public array $data,
+        //        public array $data,
         public bool $onlyFriends,
     ) {
     }
@@ -30,7 +30,7 @@ class GameData extends Data
             code: $game->code,
             mode: $game->mode->value,
             status: $game->status->value,
-            data: $game->data,
+            //            data: $game->data,
             onlyFriends: $game->only_friends,
         );
     }
