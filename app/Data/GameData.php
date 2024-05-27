@@ -2,6 +2,7 @@
 
 namespace App\Data;
 
+use App\Enums\GameStatus;
 use App\Models\Game;
 use Spatie\LaravelData\Data;
 
@@ -15,7 +16,7 @@ class GameData extends Data
         public string $code,
         public string $mode,
         public string $status,
-        //        public array $data,
+        public array $data,
         public bool $onlyFriends,
     ) {
     }
@@ -30,7 +31,7 @@ class GameData extends Data
             code: $game->code,
             mode: $game->mode->value,
             status: $game->status->value,
-            //            data: $game->data,
+            data: $game->status->value === GameStatus::PLAYING ? $game->data : [],
             onlyFriends: $game->only_friends,
         );
     }
