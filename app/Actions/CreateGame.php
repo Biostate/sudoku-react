@@ -33,8 +33,8 @@ class CreateGame
             'data' => $puzzle,
             'code' => $code,
             'mode' => $gameData['mode'],
-            'status' => $gameData['status'],
-            'only_friends' => $gameData['only_friends'],
+            'status' => GameStatus::CREATED,
+            'only_friends' => false,
         ]);
 
         return GameData::fromModel($game);
@@ -44,8 +44,6 @@ class CreateGame
     {
         $game = $this->handle($request->user(), [
             'mode' => GameMode::VERSUS,
-            'status' => GameStatus::CREATED,
-            'only_friends' => false,
         ]);
 
         return to_route('game.play', [
