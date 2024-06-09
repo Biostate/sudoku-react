@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FriendsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -22,13 +23,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('friends', [FriendsController::class, 'index'])->name('friends');
+    Route::post('friend-requests', \App\Actions\SendFriendRequest::class)
+        ->name('friend-requests.send');
+    Route::post('friend-requests/{friendRequest}/approve', \App\Actions\ApproveFriendRequest::class)
+        ->name('friend-requests.approve');
+
+    Route::post('friend-requests/{friendRequest}/reject', \App\Actions\RejectFriendRequest::class)
+        ->name('friend-requests.reject');
 });
-
-Route::post('friend-requests/{friendRequest}/approve', \App\Actions\ApproveFriendRequest::class)
-    ->name('friend-requests.approve');
-
-Route::post('friend-requests/{friendRequest}/reject', \App\Actions\RejectFriendRequest::class)
-    ->name('friend-requests.reject');
 
 require __DIR__.'/auth.php';
 require __DIR__.'/game.php';
