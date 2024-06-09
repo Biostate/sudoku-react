@@ -2,6 +2,9 @@
 
 This project is part of my graduation project.
 
+
+![Friendship Feature](https://raw.githubusercontent.com/Biostate/sudoku-react/master/art/friend_request.gif)
+
 ## Installation
 ```
 npm i
