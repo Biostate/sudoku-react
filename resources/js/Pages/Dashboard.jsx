@@ -74,11 +74,11 @@ export default function Dashboard({ auth }) {
                                         onChange={(e) => setDifficultyLevel(e.target.value)}
                                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     >
-                                        <option value="9">Easy</option>
-                                        <option value="8">Medium</option>
-                                        <option value="7">Hard</option>
-                                        <option value="6">Very Hard</option>
-                                        <option value="5">Insane</option>
+                                        <option value="14">Easy</option>
+                                        <option value="12">Medium</option>
+                                        <option value="10">Hard</option>
+                                        <option value="8">Very Hard</option>
+                                        <option value="6">Insane</option>
                                     </select>
                                 </div>
                                 <div>
