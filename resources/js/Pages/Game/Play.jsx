@@ -39,6 +39,10 @@ export default function Play({ auth, game, solution }) {
             })
             .listen('.game_updated', (e) => {
                 setCurrentGame(e.game);
+            })
+            .listenForWhisper('cellChanged', (e) => {
+                console.log(e.x, e.y, e.value);
+                handleCellChange(e.x, e.y, e.value, true);
             });
 
         return leaveGame;
@@ -85,10 +89,21 @@ export default function Play({ auth, game, solution }) {
         return '';
     };
 
-    const handleCellChange = (x, y, value) => {
+    const handleCellChange = (x, y, value, isOutSource = false) => {
         const newBoard = board.map((r, i) => r.map((cell, j) => (i === x && j === y ? value : cell)));
-        setBoard(newBoard);
+        setBoard(board => {
+            return board.map((r, i) => r.map((cell, j) => (i === x && j === y ? value : cell)));
+        });
         localStorage.setItem('game', JSON.stringify(newBoard));
+        console.log(game.mode)
+        if (!isOutSource && game.mode === 'coop') {
+            window.Echo.join(`games.${game.id}`)
+                .whisper('cellChanged', {
+                    x,
+                    y,
+                    value
+                });
+        }
     };
 
     const setSolution = () => {
@@ -101,7 +116,10 @@ export default function Play({ auth, game, solution }) {
 
         const isFilled = board.every(row => row.every(cell => cell !== 0));
         if (isFilled) {
-            router.post(`/game/${game.code}/finish`, { board });
+            router.post(`/game/${game.code}/finish`, { board }, {
+                preserveState: true,
+                preserveScroll: true,
+            });
         }
     };
 
@@ -122,7 +140,8 @@ export default function Play({ auth, game, solution }) {
                     <div className="bg-white p-6 rounded-lg shadow-sm">
                         <div className="mb-4">
                             <p className="text-lg font-semibold">Room: {currentGame.code}</p>
-                            <p className="text-lg font-semibold">Opponent: {opponent ? opponent.name : 'Waiting for opponent'}</p>
+                            <p className="text-lg font-semibold">Mode: {currentGame.mode}</p>
+                            <p className="text-lg font-semibold">{currentGame.mode === "versus" ? 'Opponent' : 'Teammate'}: {opponent ? opponent.name : 'Waiting'}</p>
                         </div>
 
                         {environment === 'local' && (

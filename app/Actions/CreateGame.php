@@ -7,6 +7,7 @@ use App\Enums\GameMode;
 use App\Enums\GameStatus;
 use App\Models\Game;
 use App\Models\User;
+use App\Sudoku\Puzzle;
 use Illuminate\Http\Request;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Lorisleiva\Actions\Concerns\AsController;
@@ -24,8 +25,9 @@ class CreateGame
         }
 
         // Generate a new puzzle
-        $puzzle = new \Xeeeveee\Sudoku\Puzzle();
-        $puzzle->generatePuzzle();
+        $puzzle = new Puzzle();
+        $cellSize = $gameData['difficulty'] * 4;
+        $puzzle->generatePuzzle($cellSize);
         $puzzle = $puzzle->getPuzzle();
 
         $game = Game::create([
@@ -42,8 +44,13 @@ class CreateGame
 
     public function asController(Request $request): \Illuminate\Http\RedirectResponse
     {
+        // TODO: Validate request
+        // game_mode must be in enum GameMode
+        // difficulty_level must be 1 to 9
+
         $game = $this->handle($request->user(), [
-            'mode' => GameMode::VERSUS,
+            'mode' => $request->input('game_mode'),
+            'difficulty' => $request->input('difficulty_level'),
         ]);
 
         return to_route('game.play', [

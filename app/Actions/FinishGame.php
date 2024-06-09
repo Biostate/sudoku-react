@@ -38,6 +38,12 @@ class FinishGame
 
         $board = $request->input('board');
 
+        $valid = $this->isSolutionMatchedWithPuzzle($game->data, $board);
+
+        if (! $valid) {
+            return redirect()->back();
+        }
+
         $solved = $this->validateBoard($board);
 
         if (! $solved) {
@@ -47,6 +53,20 @@ class FinishGame
         $this->handle($game, auth()->user());
 
         return redirect()->back();
+    }
+
+    private function isSolutionMatchedWithPuzzle($puzzle, $solution)
+    {
+        for ($row = 0; $row < 9; $row++) {
+            for ($col = 0; $col < 9; $col++) {
+                // Check if the puzzle value is not zero and does not match the solution
+                if ($puzzle[$row][$col] != 0 && $puzzle[$row][$col] != $solution[$row][$col]) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     private function validateBoard(array $board): bool

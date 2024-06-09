@@ -5,6 +5,8 @@ import { router } from '@inertiajs/react'
 
 export default function Dashboard({ auth }) {
     const [gameCode, setGameCode] = useState('')
+    const [difficultyLevel, setDifficultyLevel] = useState(7)
+    const [gameMode, setGameMode] = useState('versus')
 
     function joinGame(e) {
         e.preventDefault()
@@ -13,7 +15,10 @@ export default function Dashboard({ auth }) {
 
     function createGame(e) {
         e.preventDefault()
-        router.post('/game')
+        router.post('/game', {
+            difficulty_level: difficultyLevel,
+            game_mode: gameMode
+        })
     }
 
     return (
@@ -49,19 +54,54 @@ export default function Dashboard({ auth }) {
                             </div>
                         </form>
                         <div className="mt-6 text-center">
-                            <hr className="mb-4"/>
+                            <hr className="mb-4" />
                             <h2 className="font-semibold text-xl text-gray-800 leading-tight">
                                 OR
                             </h2>
-                            <hr className="mt-4"/>
+                            <hr className="mt-4" />
                         </div>
                         <div className="mt-6">
-                            <button
-                                onClick={createGame}
-                                className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-                            >
-                                Create Game
-                            </button>
+                            <form onSubmit={createGame} className="space-y-4">
+                                <div>
+                                    <label htmlFor="difficulty_level" className="block text-sm font-medium text-gray-700">
+                                        Difficulty Level:
+                                    </label>
+                                    <select
+                                        id="difficulty_level"
+                                        value={difficultyLevel}
+                                        onChange={(e) => setDifficultyLevel(e.target.value)}
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    >
+                                        <option value="9">Easy</option>
+                                        <option value="8">Medium</option>
+                                        <option value="7">Hard</option>
+                                        <option value="6">Very Hard</option>,
+                                        <option value="5">Insane</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label htmlFor="game_mode" className="block text-sm font-medium text-gray-700">
+                                        Game Mode:
+                                    </label>
+                                    <select
+                                        id="game_mode"
+                                        value={gameMode}
+                                        onChange={(e) => setGameMode(e.target.value)}
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    >
+                                        <option value="versus">Versus</option>
+                                        <option value="coop">Coop</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <button
+                                        type="submit"
+                                        className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                                    >
+                                        Create Game
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
