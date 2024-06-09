@@ -8,6 +8,7 @@
         "php": "^8.2",
         "bensampo/laravel-enum": "^6.11",
         "creativeorange/gravatar": "^1.0",
+        "fakerphp/faker": "^1.23",
         "inertiajs/inertia-laravel": "^1.0",
         "laravel/framework": "^11.0",
         "laravel/reverb": "@beta",
@@ -17,8 +18,7 @@
         "pusher/pusher-php-server": "^7.2",
         "spatie/laravel-data": "^4.4",
         "tightenco/ziggy": "^2.0",
-        "xeeeveee/sudoku": "^0.2.1",
-        "fakerphp/faker": "^1.23"
+        "xeeeveee/sudoku": "^0.2.1"
     },
     "require-dev": {
         "laravel/breeze": "^2.0",
