@@ -18,6 +18,7 @@ class GameData extends Data
         public string $status,
         public array $data,
         public bool $onlyFriends,
+        public bool $enableHighlighting,
     ) {
     }
 
@@ -33,6 +34,7 @@ class GameData extends Data
             status: $game->status->value,
             data: $game->status->value === GameStatus::PLAYING ? $game->data : [],
             onlyFriends: $game->only_friends,
+            enableHighlighting: $game->enable_highlighting,
         );
     }
 }

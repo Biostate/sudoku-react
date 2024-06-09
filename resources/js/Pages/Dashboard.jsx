@@ -7,6 +7,7 @@ export default function Dashboard({ auth }) {
     const [gameCode, setGameCode] = useState('')
     const [difficultyLevel, setDifficultyLevel] = useState(7)
     const [gameMode, setGameMode] = useState('versus')
+    const [enableHighlighting, setEnableHighlighting] = useState('0')
 
     function joinGame(e) {
         e.preventDefault()
@@ -17,7 +18,8 @@ export default function Dashboard({ auth }) {
         e.preventDefault()
         router.post('/game', {
             difficulty_level: difficultyLevel,
-            game_mode: gameMode
+            game_mode: gameMode,
+            enable_highlighting: enableHighlighting
         })
     }
 
@@ -75,8 +77,22 @@ export default function Dashboard({ auth }) {
                                         <option value="9">Easy</option>
                                         <option value="8">Medium</option>
                                         <option value="7">Hard</option>
-                                        <option value="6">Very Hard</option>,
+                                        <option value="6">Very Hard</option>
                                         <option value="5">Insane</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label htmlFor="difficulty_level" className="block text-sm font-medium text-gray-700">
+                                        Enable Highlighting:
+                                    </label>
+                                    <select
+                                        id="difficulty_level"
+                                        value={enableHighlighting}
+                                        onChange={(e) => setEnableHighlighting(e.target.value)}
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    >
+                                        <option value="0">No</option>
+                                        <option value="1">Yes</option>
                                     </select>
                                 </div>
                                 <div>

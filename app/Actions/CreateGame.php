@@ -37,6 +37,7 @@ class CreateGame
             'mode' => $gameData['mode'],
             'status' => GameStatus::CREATED,
             'only_friends' => false,
+            'enable_highlighting' => $gameData['enable_highlighting'] ?? false,
         ]);
 
         return GameData::fromModel($game);
@@ -51,6 +52,7 @@ class CreateGame
         $game = $this->handle($request->user(), [
             'mode' => $request->input('game_mode'),
             'difficulty' => $request->input('difficulty_level'),
+            'enable_highlighting' => $request->input('enable_highlighting'),
         ]);
 
         return to_route('game.play', [

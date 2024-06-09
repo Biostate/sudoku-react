@@ -21,6 +21,7 @@ class Game extends Model
         'status',
         'data',
         'only_friends',
+        'enable_highlighting',
     ];
 
     protected $casts = [

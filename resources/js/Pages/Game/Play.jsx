@@ -6,6 +6,7 @@ import SudokuBoard from "@/Components/SudokuBoard.jsx";
 export default function Play({ auth, game, solution }) {
     const [currentGame, setCurrentGame] = useState(game);
     const [board, setBoard] = useState(currentGame.data ?? []);
+    const [initialBoard, setInitialBoard] = useState(currentGame.data ?? []);
     const [opponent, setOpponent] = useState(null);
     const environment = import.meta.env.VITE_APP_ENV;
 
@@ -32,6 +33,7 @@ export default function Play({ auth, game, solution }) {
             .listen('.game_started', (e) => {
                 setCurrentGame(e.game);
                 setBoard(e.board);
+                setInitialBoard(e.board);
             })
             .listen('.game_finished', (e) => {
                 setCurrentGame(e.game);
@@ -41,7 +43,6 @@ export default function Play({ auth, game, solution }) {
                 setCurrentGame(e.game);
             })
             .listenForWhisper('cellChanged', (e) => {
-                console.log(e.x, e.y, e.value);
                 handleCellChange(e.x, e.y, e.value, true);
             });
 
@@ -74,14 +75,14 @@ export default function Play({ auth, game, solution }) {
                 return (
                     <div className="text-center mt-4">
                         <p className="text-green-600 font-semibold">You won!</p>
-                        <a href="/" className="text-blue-500 underline">Go to Home</a>
+                        <a href="/dashboard" className="text-blue-500 underline">Go to Dashboard</a>
                     </div>
                 );
             } else {
                 return (
                     <div className="text-center mt-4">
                         <p className="text-red-600 font-semibold">You lost!</p>
-                        <a href="/" className="text-blue-500 underline">Go to Home</a>
+                        <a href="/dashboard" className="text-blue-500 underline">Go to Dashboard</a>
                     </div>
                 );
             }
@@ -91,12 +92,18 @@ export default function Play({ auth, game, solution }) {
 
     const handleCellChange = (x, y, value, isOutSource = false) => {
         const newBoard = board.map((r, i) => r.map((cell, j) => (i === x && j === y ? value : cell)));
+        console.log(newBoard)
         setBoard(board => {
             return board.map((r, i) => r.map((cell, j) => (i === x && j === y ? value : cell)));
         });
         localStorage.setItem('game', JSON.stringify(newBoard));
-        console.log(game.mode)
+
+        if (isOutSource) {
+            console.log('received')
+        }
+
         if (!isOutSource && game.mode === 'coop') {
+            console.log('sending')
             window.Echo.join(`games.${game.id}`)
                 .whisper('cellChanged', {
                     x,
@@ -168,7 +175,7 @@ export default function Play({ auth, game, solution }) {
                         <hr className="mb-4"/>
 
                         {currentGame.status === 'playing' && (
-                            <SudokuBoard board={board} onCellChange={handleCellChange} />
+                            <SudokuBoard board={board} onCellChange={handleCellChange} enableHighlighting={game.enableHighlighting} puzzle={initialBoard}/>
                         )}
 
                         {canStartGame() && (
