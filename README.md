@@ -2,8 +2,15 @@
 
 This project is part of my graduation project.
 
-
 ![Friendship Feature](https://raw.githubusercontent.com/Biostate/sudoku-react/master/art/friend_request.gif)
+
+## TODO
+
+- [x] Update friend system
+- [x] Add timer
+- [x] Add coop player highlight
+- [x] Add more configurations
+- [x] Add more themes
 
 ## Installation
 ```

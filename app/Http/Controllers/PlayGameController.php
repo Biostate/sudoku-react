@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Data\GameData;
 use App\Models\Game;
+use App\Sudoku\Puzzle;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -22,7 +23,7 @@ class PlayGameController extends Controller
         $game->load('player1', 'player2');
 
         if (app()->environment('local')) {
-            $puzzle = new \Xeeeveee\Sudoku\Puzzle($game->data);
+            $puzzle = new Puzzle($game->data);
             $puzzle->solve();
             $solution = $puzzle->getSolution();
         } else {

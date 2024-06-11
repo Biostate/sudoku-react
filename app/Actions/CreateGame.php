@@ -3,7 +3,6 @@
 namespace App\Actions;
 
 use App\Data\GameData;
-use App\Enums\GameMode;
 use App\Enums\GameStatus;
 use App\Models\Game;
 use App\Models\User;
@@ -24,7 +23,6 @@ class CreateGame
             $code = bin2hex(random_bytes(4));
         }
 
-        // Generate a new puzzle
         $puzzle = new Puzzle();
         $cellSize = $gameData['difficulty'] * 4;
         $puzzle->generatePuzzle($cellSize);
@@ -45,10 +43,6 @@ class CreateGame
 
     public function asController(Request $request): \Illuminate\Http\RedirectResponse
     {
-        // TODO: Validate request
-        // game_mode must be in enum GameMode
-        // difficulty_level must be 1 to 9
-
         $game = $this->handle($request->user(), [
             'mode' => $request->input('game_mode'),
             'difficulty' => $request->input('difficulty_level'),

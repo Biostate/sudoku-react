@@ -7,6 +7,7 @@ use App\Enums\GameStatus;
 use App\Events\GameFinished;
 use App\Models\Game;
 use App\Models\User;
+use App\Sudoku\Puzzle;
 use Illuminate\Http\Request;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Lorisleiva\Actions\Concerns\AsController;
@@ -79,7 +80,7 @@ class FinishGame
             }
         }
 
-        $puzzle = new \Xeeeveee\Sudoku\Puzzle();
+        $puzzle = new Puzzle();
         $puzzle->setSolution($board);
 
         return $puzzle->isSolved();

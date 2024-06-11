@@ -114,7 +114,7 @@ export default function SudokuBoard({ board, puzzle, onCellChange = (x, y, value
             <div
                 ref={boardRef}
                 tabIndex={0}
-                className="grid grid-cols-9 gap-0.5 bg-white p-4 shadow-lg rounded outline-none"
+                className="grid grid-cols-9 bg-white p-4 shadow-lg rounded outline-none"
             >
                 {board.map((row, rowIndex) =>
                     row.map((cell, colIndex) => (
